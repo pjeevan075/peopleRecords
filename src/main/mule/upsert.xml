@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<sub-flow name="upsert" doc:id="0d64978b-62da-4514-9674-f85b79342bc2" >
+		<ee:transform doc:name="Transform Message" doc:id="8dd30760-f835-4f0b-9ec4-445b61a36428" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload map ((item, index) -> {
+    "Name__c":  item.Name__c,
+    "Age__c":  item.Age__c,
+    "Address__c":  item.Address__c,
+    "Gender__c":  item.Gender__c,
+    "Id":  item.id
+    
+   
+})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:upsert doc:name="Upsert" doc:id="1ea86b34-f595-44e3-a19e-ca1576b48a02" config-ref="Salesforce_Config" objectType="Persons__c" externalIdFieldName="Id"/>
+		<ee:transform doc:name="Transform Message" doc:id="7f45a450-5eab-4570-be4b-d155d55bee7e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

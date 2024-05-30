@@ -1,0 +1,80 @@
+#%RAML 1.0
+title: personDetails
+description: person records
+
+traits:
+  T: !include /traits/trait.raml
+resourceTypes:
+  R: !include /resourceType/resourceTypes.raml
+uses:
+  lib: libraries/library.raml
+
+/person:
+  is: lib.T
+  get: 
+    description: Retrieve a person details
+    displayName: GET PERSON DETAILS
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include dataType/person.raml
+            example: !include example/person.json
+  post:
+    description: Creating a person details
+    displayName: CREATE PERSON DETAILS
+    body:
+      application/json: 
+        type: !include dataType/person.raml
+        example: !include example/person.json
+    responses:
+      201:
+        body:
+          application/json:
+            type: !include dataType/person.raml
+            example: !include example/person.json
+      
+  
+      
+  patch:
+    description: partial updating the person details
+    displayName: PARTIALLY UPDATE PERSON DETAILS
+    body:
+      application/json:
+        type: !include dataType/update.raml
+        example: !include example/update.json
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include dataType/update.raml
+            example: !include example/update.json
+      
+  put:
+    description: Updating a person details computer
+    displayName: UPDATE PERSON DETAILS
+    body:
+      application/json:
+        type: !include dataType/person.raml
+        example: !include example/person.json
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include dataType/person.raml
+            example: !include example/person.json
+  
+  delete:
+    description: Delete a person details
+    displayName: DELETE PERSON DETAILS
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include dataType/person.raml
+            example: !include example/person.json
+                
+                
+
+              
+   

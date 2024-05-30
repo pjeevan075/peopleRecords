@@ -1,0 +1,14 @@
+#%RAML 1.0 ResourceType
+collection:
+   is: lib.T
+   get: 
+    description: Retrieve a person details
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include ../dataType/person.raml
+            example: !include ../example/person.json
+   
+
+  

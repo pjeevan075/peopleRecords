@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<sub-flow name="create" doc:id="ba6aa242-36b3-4ee3-bd8c-8e7474c2ed25" >
+		<ee:transform doc:name="Transform Message" doc:id="d9d158fc-8850-4a9f-9f6b-e26c22a32f1e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload map ((item, index) -> {
+    "Name__c": item.Name__c,
+    "Age__c": item.Age__c,
+    "Address__c": item.Address__c,
+    "Gender__c":item.Gender__c,
+   
+})]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:create doc:name="Create" doc:id="251b6a7d-8086-47f4-91cc-1e0fa7d5dc36" config-ref="Salesforce_Config" type="Persons__c"/>
+		<ee:transform doc:name="Transform Message" doc:id="1dd2ebc8-f734-440c-b073-46ce68656742" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

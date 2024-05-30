@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_d06ccf74_f3b0_4d14_9e3a_8797208d7d01_Input_Payload = Array<{  Age__c?: Number,   Name__c?: String,   Gender__c?: String,   Id: String,   Address__c?: String,   _?: Any}>
+

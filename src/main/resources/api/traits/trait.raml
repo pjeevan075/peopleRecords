@@ -1,0 +1,32 @@
+#%RAML 1.0 Trait
+
+responses:
+  401:
+   body:
+     application/json:
+       type: object
+       example: {"F":"Unauthorized"}
+
+  403:
+   body:
+     application/json:
+       type: object
+       example: {"F":"Forbidden"}
+
+  500:
+   body:
+     application/json:
+       type: object
+       example: {"F":"Internal Server Error"}
+
+  503:
+   body:
+     application/json:
+       type: object
+       example: {"F":"Service Unavailable"}
+
+  502:
+   body:
+    application/json:
+       type: object
+       example: {"F":"Bad Gateway"}

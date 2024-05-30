@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="471d107f-fe12-4c3d-8a65-f0f4fa8e028c" >
+		<salesforce:basic-connection username="${secure::salesforce.username}" password="${secure::salesforce.password}" securityToken="${secure::salesforce.securitytoken}" />
+	</salesforce:sfdc-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="2a823191-386c-4de0-bd6f-32179046ef5c" file="securityProperties\security.yaml" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="b1b87802-e4b8-4eb5-a52b-10b6b07fc515" file="securityProperties\security.yaml" key="SF" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<api-gateway:autodiscovery apiId="19558839" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="ff835e68-d70e-4d68-b69b-0b892c88ac67" flowRef="personRecords-main" />
+</mule>

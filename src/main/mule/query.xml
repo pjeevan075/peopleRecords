@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="query" doc:id="4a5b012f-eb53-4f05-b4d8-c8e8fb7d654d" >
+		<ee:transform doc:name="Transform Message" doc:id="3280e5e3-e70a-4822-a075-8349184ab4ef" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<salesforce:query-all doc:name="Query all" doc:id="70f5d860-297e-443c-a428-b747de85f32d" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query ><![CDATA[SELECT Name__c,Id,Age__c,Gender__c,Address__c FROM Persons__c]]></salesforce:salesforce-query>
+		</salesforce:query-all>
+		<ee:transform doc:name="Transform Message" doc:id="386c22cf-232e-4e3a-b2f0-4f2542b8d0e9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
